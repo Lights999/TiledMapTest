@@ -64,6 +64,7 @@ public class MapManager : MonoBehaviour {
 
     this.SetCellsOffsetPos ();
     GenerateSea ();
+
   }
 	
 	// Update is called once per frame
@@ -265,11 +266,6 @@ public class MapManager : MonoBehaviour {
     yield break;
   }
 
-  public void ScreenShot()
-  {
-    Application.CaptureScreenshot("ScreenshotTest.png");
-  }
-
   public void GenerateSeaCell(GameObject parentObj, int dumpStart, int orderInlayer)
   {
     GameObject _root = parentObj;
@@ -281,39 +277,6 @@ public class MapManager : MonoBehaviour {
     while (_openQueue.Count > 0) {
       CheckQueue (_openQueue, _closedList, orderInlayer);
     }
-
-    /*
-    // 如果数值小于0 直接返回
-    if (dumpStart <= 0) {
-      //checkedList.Add (parentObj);//放入已检测List
-      return;
-    }
-
-    // 如果已经检测过所有邻居 直接返回
-    if (checkedList.Contains (parentObj)) {
-      return;
-    }
-
-    // 生成海的GameObject
-    GameObject _seaObj =  GameObject.Instantiate (this.SeaObj, parentObj.transform, false);
-    _seaObj.GetComponent<BasicCell> ().SetOrderInLayer (orderInlayer);
-    this.SeaList.Add (_seaObj);
-
-    BasicCell _parentScript = parentObj.GetComponent<BasicCell> ();
-    // 如果没有邻居 直接返回
-    if (!_parentScript.HasNeighboursCross ()) {
-      checkedList.Add (parentObj);//放入已检测List
-      return;
-    }
-      
-    // 以每个邻居为父节点，创建海节点
-    foreach (var neighbourObj in _parentScript.NeighboursCross) {
-      int _dumpStep = 1;//Random.Range(this.SeaDumpMin, this.SeaDumpMax);
-      GenerateSeaCell(neighbourObj, dumpStart - _dumpStep, checkedList, orderInlayer);
-    }
-
-    checkedList.Add (parentObj);//放入已检测List
-    */
   }
 
   void CheckQueue (Queue<GameObject> openQueue, HashSet<GameObject> closedList, int orderInlayer)
