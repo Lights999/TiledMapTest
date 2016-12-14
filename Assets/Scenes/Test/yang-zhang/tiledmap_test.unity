@@ -415,6 +415,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1666588473}
   - 114: {fileID: 1666588474}
+  - 114: {fileID: 1666588475}
   m_Layer: 0
   m_Name: MapManager
   m_TagString: Untagged
@@ -451,14 +452,33 @@ MonoBehaviour:
   CellRowNumber: 100
   CellColNumber: 100
   GridSideLength: 1
-  CostTimeSeconds: 0.000122
-  BasicObj: {fileID: 1000010727788468, guid: 7d04a95eced2bae488392f96a0cf0d2d, type: 2}
-  SeaObj: {fileID: 1000013667560400, guid: 45709ade666734746ac86fdb1eaad5c1, type: 2}
-  SeaList: []
-  SeaDumpStartPoint: 10
-  SeaDumpMin: 1
-  SeaDumpMax: 3
-  GenerateSeaProcedureSeconds: 0.5
+  BasicCellPrefab: {fileID: 1000010727788468, guid: 7d04a95eced2bae488392f96a0cf0d2d,
+    type: 2}
+  TerrainGenerateOrder: 0100000002000000
+  TerrainCellPrefab: {fileID: 0}
+  TerrainCellList: []
+  TerrainDumpStartPoint: 10
+  TerrainDumpMin: 1
+  TerrainDumpMax: 3
+  GenerateTerrainProcedureSeconds: 0.5
+--- !u!114 &1666588475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1666588472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9a6a15569210044986e01fd25aa93fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MapCellType: 2
+  TerrainCellPrefab: {fileID: 1000013667560400, guid: 45709ade666734746ac86fdb1eaad5c1,
+    type: 2}
+  TerrainCellList: []
+  TerrainDumpStartPoint: 10
+  TerrainDumpMin: 1
+  TerrainDumpMax: 3
 --- !u!1 &1975217604
 GameObject:
   m_ObjectHideFlags: 0

@@ -70,12 +70,16 @@ namespace MapManagement.Editor
         script.AdjustAlign ();
       }
 
+      if (Application.isPlaying)
+        return;
+      
       GUILayout.TextArea("",GUI.skin.horizontalSlider);
+
       using(new GUILayout.HorizontalScope())
       {
         if (GUILayout.Button ("Init")) 
         {
-          script.InitWithPlain ();
+          script.InitBasicCell ();
         }
 
         if (GUILayout.Button("Clear")) 
@@ -87,7 +91,8 @@ namespace MapManagement.Editor
 
       if (GUILayout.Button("Generate Sub-Cell")) 
       {
-          script.GenerateSea();
+        script.TCG = script.GetComponent<TerrainCellsGenerator> ();
+          script.GenerateTerrain();
       }
 
       showGizmoInfo = GUILayout.Toggle (showGizmoInfo, "Show Gizmo Info");
