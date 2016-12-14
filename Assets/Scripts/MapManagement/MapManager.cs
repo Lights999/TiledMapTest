@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Linq;
-using ConstCollections;
+using ConstCollections.PJEnums;
 
-//[ExecuteInEditMode]
+
 public class MapManager : MonoBehaviour {
   public Vector3 OffsetOrigin;
-  public PJEnums.MAP_ALIGN_MODE AlignMode;
-  PJEnums.MAP_ALIGN_MODE alignModePrev;
+  public MAP_ALIGN_MODE AlignMode;
+  MAP_ALIGN_MODE alignModePrev;
   UnityEvent OnGUIChanged;
 
   public int CellRowNumber;
   public int CellColNumber;
   public int GridSideLength = 1;
-  public float CostTimeSeconds;
   public GameObject BasicObj;
   public GameObject SeaObj;
   public GameObject[,] CellList;
@@ -38,10 +37,6 @@ public class MapManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	}
-
-  void OnDrawGizmos() {
-    DrawGrid ();
-  }
 
   public void InitWithPlain()
   {
@@ -103,57 +98,17 @@ public class MapManager : MonoBehaviour {
   {
 
     switch (this.AlignMode) {
-    case PJEnums.MAP_ALIGN_MODE.LEFT_BOTTOM:
+    case MAP_ALIGN_MODE.LEFT_BOTTOM:
       OffsetOrigin = Vector3.zero;
       break;
-    case PJEnums.MAP_ALIGN_MODE.CENTER:
+    case MAP_ALIGN_MODE.CENTER:
       OffsetOrigin = new Vector3 ((((float)-CellColNumber) / 2.0F) * (float)GridSideLength, ((float)-CellRowNumber / 2.0F) * (float)GridSideLength, 0);
       break;
-    case PJEnums.MAP_ALIGN_MODE.CUSTOM:
+    case MAP_ALIGN_MODE.CUSTOM:
       break;
     }
 
     this.alignModePrev = this.AlignMode;
-  }
-
-  public void DrawGrid()
-  {
-    // we use a gizmo just for the clickbox, which is why it's clear
-    Color _oldColor = Gizmos.color;
-    Gizmos.color = Color.yellow;
-    float gridSideLength = GridSideLength;
-
-    float _startTime = Time.realtimeSinceStartup;
-    //Draw row 
-    for (int _row = 0; _row < CellRowNumber + 1; _row++) {
-      Vector3 _start = new Vector3 (0, _row * gridSideLength, 0);
-      Vector3 _end = new Vector3 (CellColNumber * gridSideLength, _row * gridSideLength, 0);
-      Vector3 _offsetStart = _start + this.OffsetOrigin; // Convert to offset coordinate
-      Vector3 _offsetEnd = _end + this.OffsetOrigin; // Convert to offset coordinate
-      Gizmos.DrawLine (transform.position + _offsetStart, transform.position + _offsetEnd);
-
-      CostTimeSeconds = Time.realtimeSinceStartup - _startTime;
-      if (CostTimeSeconds > 10.0F)
-        throw new System.Exception ("Time out @OnDrawGizmos - Draw row ");
-    }
-
-    for (int _col = 0; _col < CellColNumber + 1; _col++) {
-      Vector3 _start = new Vector3 (_col * gridSideLength, 0, 0);
-      Vector3 _end = new Vector3 ( _col * gridSideLength, CellRowNumber * gridSideLength, 0);
-      Vector3 _offsetStart = _start + this.OffsetOrigin; // Convert to offset coordinate
-      Vector3 _offsetEnd = _end + this.OffsetOrigin; // Convert to offset coordinate
-      Gizmos.DrawLine (transform.position + _offsetStart, transform.position + _offsetEnd);
-
-      CostTimeSeconds = Time.realtimeSinceStartup - _startTime;
-      if (CostTimeSeconds > 10.0F)
-        throw new System.Exception ("Time out @OnDrawGizmos - Draw col ");
-    }
-      
-
-    CostTimeSeconds = Time.realtimeSinceStartup - _startTime;
-    CostTimeSeconds = float.Parse (string.Format ("{0:f6}", CostTimeSeconds));
-
-    Gizmos.color = _oldColor;
   }
 
   public void SetBasicCells()
