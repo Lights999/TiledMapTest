@@ -3,30 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Linq;
-
-#if UNITY_EDITOR
-using UnityEditor;
-using UnityEditor.SceneManagement;
-#endif
-
-public enum MAP_ALIGN_MODE {
-  LEFT_BOTTOM,
-  CENTER,
-  CUSTOM,
-}
+using ConstCollections;
 
 //[ExecuteInEditMode]
 public class MapManager : MonoBehaviour {
   public Vector3 OffsetOrigin;
-  public MAP_ALIGN_MODE AlignMode;
-  MAP_ALIGN_MODE alignModePrev;
+  public PJEnums.MAP_ALIGN_MODE AlignMode;
+  PJEnums.MAP_ALIGN_MODE alignModePrev;
   UnityEvent OnGUIChanged;
 
   public int CellRowNumber;
   public int CellColNumber;
   public int GridSideLength = 1;
   public float CostTimeSeconds;
-  public bool GUIChanged = false;
   public GameObject BasicObj;
   public GameObject SeaObj;
   public GameObject[,] CellList;
@@ -38,23 +27,25 @@ public class MapManager : MonoBehaviour {
   [Range(0.0F, 2.0F)]
   public float GenerateSeaProcedureSeconds = 0.5F;
 
-  [HideInInspector]
-  public bool GizmoIsDirty;
-
-  /*
-  void OnEnable()
-  {
-    CellList = new Cell[CellRowNumber,CellColNumber];
-
-    this.AdjustAlign ();
-    this.SetOriginCell ();
-    this.SetBlankCell ();
-    
-  }
-  */
 
 	// Use this for initialization
 	void Start () {
+    InitWithPlain ();
+    GenerateSea ();
+
+  }
+	
+	// Update is called once per frame
+	void Update () {
+	}
+
+  void OnDrawGizmos() {
+    DrawGrid ();
+  }
+
+  public void InitWithPlain()
+  {
+    this.Clear ();
     CellList = new GameObject[CellRowNumber,CellColNumber];
     SeaList = new List<GameObject> ();
     this.AdjustAlign ();
@@ -63,26 +54,34 @@ public class MapManager : MonoBehaviour {
     this.SetBasicCellsNeighbours ();
 
     this.SetCellsOffsetPos ();
-    GenerateSea ();
-
   }
-	
-	// Update is called once per frame
-	void Update () {
-    /*
-    if (this.GUIChanged) {
-      if(OnGUIChanged!= null)
-        OnGUIChanged.Invoke ();
-      
-      this.SetCellsOffsetPos ();
-      this.GUIChanged = false;
+
+  public void Clear()
+  {
+    if (this.SeaList != null) {
+      this.SeaList.ForEach (item => DestroyImmediate (item));
+      this.SeaList.Clear ();
+      this.SeaList = null;
     }
-    */
-	}
 
-  void OnDrawGizmos() {
+    if (CellList != null) {
+      foreach (var cell in CellList) {
+        DestroyImmediate (cell);
+      }
 
-    DrawGrid ();
+      CellList = null;
+    }
+
+    int _count = this.transform.childCount;
+    List<GameObject> _checkList = new List<GameObject> ();
+    for (int i = 0; i < _count; i++) {
+      _checkList.Add (this.transform.GetChild (i).gameObject);
+    }
+
+    for (int i = 0; i < _checkList.Count; i++) {
+      DestroyImmediate (_checkList [i]);
+    }
+
   }
 
   public void RoundRowCol()
@@ -104,13 +103,13 @@ public class MapManager : MonoBehaviour {
   {
 
     switch (this.AlignMode) {
-    case MAP_ALIGN_MODE.LEFT_BOTTOM:
+    case PJEnums.MAP_ALIGN_MODE.LEFT_BOTTOM:
       OffsetOrigin = Vector3.zero;
       break;
-    case MAP_ALIGN_MODE.CENTER:
+    case PJEnums.MAP_ALIGN_MODE.CENTER:
       OffsetOrigin = new Vector3 ((((float)-CellColNumber) / 2.0F) * (float)GridSideLength, ((float)-CellRowNumber / 2.0F) * (float)GridSideLength, 0);
       break;
-    case MAP_ALIGN_MODE.CUSTOM:
+    case PJEnums.MAP_ALIGN_MODE.CUSTOM:
       break;
     }
 
@@ -367,29 +366,3 @@ public class MapManager : MonoBehaviour {
   }
   */
 }
-
-
-#if UNITY_EDITOR
-[CanEditMultipleObjects]
-[CustomEditor(typeof(MapManager))]
-public class MapManagerEditor : Editor {
-
-  private Vector3 positionPrev;
-
-  public override void OnInspectorGUI() {
-
-    DrawDefaultInspector();
-
-    if (GUI.changed) {
-      MapManager _script = (MapManager)target;
-      _script.AdjustAlign ();
-      _script.GUIChanged = true;
-    }
-
-    //_script.GizmoIsDirty = true;
-
-
-    //EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
-  }
-}
-#endif

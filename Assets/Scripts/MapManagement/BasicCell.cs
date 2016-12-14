@@ -72,6 +72,8 @@ public class BasicCell : MonoBehaviour {
     Gizmos.color = Color.red;
 
     foreach (var item in NeighboursCross) {
+      if (item == null)
+        continue;
       Vector3 _line = item.transform.position - this.transform.position;
       Vector3 _to = this.transform.position + _line.normalized * _line.magnitude * 0.2f;
       Gizmos.DrawLine (this.transform.position, _to);
