@@ -3,19 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Linq;
+using ConstCollections.PJEnums;
 
-#if UNITY_EDITOR
-using UnityEditor;
-using UnityEditor.SceneManagement;
-#endif
 
-public enum MAP_ALIGN_MODE {
-  LEFT_BOTTOM,
-  CENTER,
-  CUSTOM,
-}
-
-//[ExecuteInEditMode]
 public class MapManager : MonoBehaviour {
   public Vector3 OffsetOrigin;
   public MAP_ALIGN_MODE AlignMode;
@@ -25,8 +15,6 @@ public class MapManager : MonoBehaviour {
   public int CellRowNumber;
   public int CellColNumber;
   public int GridSideLength = 1;
-  public float CostTimeSeconds;
-  public bool GUIChanged = false;
   public GameObject BasicObj;
   public GameObject SeaObj;
   public GameObject[,] CellList;
@@ -38,23 +26,21 @@ public class MapManager : MonoBehaviour {
   [Range(0.0F, 2.0F)]
   public float GenerateSeaProcedureSeconds = 0.5F;
 
-  [HideInInspector]
-  public bool GizmoIsDirty;
-
-  /*
-  void OnEnable()
-  {
-    CellList = new Cell[CellRowNumber,CellColNumber];
-
-    this.AdjustAlign ();
-    this.SetOriginCell ();
-    this.SetBlankCell ();
-    
-  }
-  */
 
 	// Use this for initialization
 	void Start () {
+    InitWithPlain ();
+    GenerateSea ();
+
+  }
+	
+	// Update is called once per frame
+	void Update () {
+	}
+
+  public void InitWithPlain()
+  {
+    this.Clear ();
     CellList = new GameObject[CellRowNumber,CellColNumber];
     SeaList = new List<GameObject> ();
     this.AdjustAlign ();
@@ -63,26 +49,34 @@ public class MapManager : MonoBehaviour {
     this.SetBasicCellsNeighbours ();
 
     this.SetCellsOffsetPos ();
-    GenerateSea ();
-
   }
-	
-	// Update is called once per frame
-	void Update () {
-    /*
-    if (this.GUIChanged) {
-      if(OnGUIChanged!= null)
-        OnGUIChanged.Invoke ();
-      
-      this.SetCellsOffsetPos ();
-      this.GUIChanged = false;
+
+  public void Clear()
+  {
+    if (this.SeaList != null) {
+      this.SeaList.ForEach (item => DestroyImmediate (item));
+      this.SeaList.Clear ();
+      this.SeaList = null;
     }
-    */
-	}
 
-  void OnDrawGizmos() {
+    if (CellList != null) {
+      foreach (var cell in CellList) {
+        DestroyImmediate (cell);
+      }
 
-    DrawGrid ();
+      CellList = null;
+    }
+
+    int _count = this.transform.childCount;
+    List<GameObject> _checkList = new List<GameObject> ();
+    for (int i = 0; i < _count; i++) {
+      _checkList.Add (this.transform.GetChild (i).gameObject);
+    }
+
+    for (int i = 0; i < _checkList.Count; i++) {
+      DestroyImmediate (_checkList [i]);
+    }
+
   }
 
   public void RoundRowCol()
@@ -115,46 +109,6 @@ public class MapManager : MonoBehaviour {
     }
 
     this.alignModePrev = this.AlignMode;
-  }
-
-  public void DrawGrid()
-  {
-    // we use a gizmo just for the clickbox, which is why it's clear
-    Color _oldColor = Gizmos.color;
-    Gizmos.color = Color.yellow;
-    float gridSideLength = GridSideLength;
-
-    float _startTime = Time.realtimeSinceStartup;
-    //Draw row 
-    for (int _row = 0; _row < CellRowNumber + 1; _row++) {
-      Vector3 _start = new Vector3 (0, _row * gridSideLength, 0);
-      Vector3 _end = new Vector3 (CellColNumber * gridSideLength, _row * gridSideLength, 0);
-      Vector3 _offsetStart = _start + this.OffsetOrigin; // Convert to offset coordinate
-      Vector3 _offsetEnd = _end + this.OffsetOrigin; // Convert to offset coordinate
-      Gizmos.DrawLine (transform.position + _offsetStart, transform.position + _offsetEnd);
-
-      CostTimeSeconds = Time.realtimeSinceStartup - _startTime;
-      if (CostTimeSeconds > 10.0F)
-        throw new System.Exception ("Time out @OnDrawGizmos - Draw row ");
-    }
-
-    for (int _col = 0; _col < CellColNumber + 1; _col++) {
-      Vector3 _start = new Vector3 (_col * gridSideLength, 0, 0);
-      Vector3 _end = new Vector3 ( _col * gridSideLength, CellRowNumber * gridSideLength, 0);
-      Vector3 _offsetStart = _start + this.OffsetOrigin; // Convert to offset coordinate
-      Vector3 _offsetEnd = _end + this.OffsetOrigin; // Convert to offset coordinate
-      Gizmos.DrawLine (transform.position + _offsetStart, transform.position + _offsetEnd);
-
-      CostTimeSeconds = Time.realtimeSinceStartup - _startTime;
-      if (CostTimeSeconds > 10.0F)
-        throw new System.Exception ("Time out @OnDrawGizmos - Draw col ");
-    }
-      
-
-    CostTimeSeconds = Time.realtimeSinceStartup - _startTime;
-    CostTimeSeconds = float.Parse (string.Format ("{0:f6}", CostTimeSeconds));
-
-    Gizmos.color = _oldColor;
   }
 
   public void SetBasicCells()
@@ -367,29 +321,3 @@ public class MapManager : MonoBehaviour {
   }
   */
 }
-
-
-#if UNITY_EDITOR
-[CanEditMultipleObjects]
-[CustomEditor(typeof(MapManager))]
-public class MapManagerEditor : Editor {
-
-  private Vector3 positionPrev;
-
-  public override void OnInspectorGUI() {
-
-    DrawDefaultInspector();
-
-    if (GUI.changed) {
-      MapManager _script = (MapManager)target;
-      _script.AdjustAlign ();
-      _script.GUIChanged = true;
-    }
-
-    //_script.GizmoIsDirty = true;
-
-
-    //EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
-  }
-}
-#endif

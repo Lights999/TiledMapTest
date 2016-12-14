@@ -194,7 +194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1267085371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,7 +241,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 2
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 206811706}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -451,8 +451,7 @@ MonoBehaviour:
   CellRowNumber: 100
   CellColNumber: 100
   GridSideLength: 1
-  CostTimeSeconds: 0
-  GUIChanged: 1
+  CostTimeSeconds: 0.000122
   BasicObj: {fileID: 1000010727788468, guid: 7d04a95eced2bae488392f96a0cf0d2d, type: 2}
   SeaObj: {fileID: 1000013667560400, guid: 45709ade666734746ac86fdb1eaad5c1, type: 2}
   SeaList: []
@@ -460,7 +459,6 @@ MonoBehaviour:
   SeaDumpMin: 1
   SeaDumpMax: 3
   GenerateSeaProcedureSeconds: 0.5
-  GizmoIsDirty: 0
 --- !u!1 &1975217604
 GameObject:
   m_ObjectHideFlags: 0
