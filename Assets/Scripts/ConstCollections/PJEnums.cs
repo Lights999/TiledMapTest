@@ -26,5 +26,6 @@ namespace ConstCollections.PJEnums
     TERRAIN,
     TOWN
   }
+
 }
 

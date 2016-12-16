@@ -58,6 +58,7 @@ namespace MapManagement.Editor
       Gizmos.color = _oldColor;
 
       //EditorUtility.SetDirty (mapManager);
+
     }
 
     public override void OnInspectorGUI() 
