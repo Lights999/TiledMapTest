@@ -73,7 +73,9 @@ namespace MapManagement.Editor
 
       if (Application.isPlaying)
         return;
-      
+
+      script.TCG = script.GetComponent<TerrainCellsGenerator> ();
+
       GUILayout.TextArea("",GUI.skin.horizontalSlider);
 
       using(new GUILayout.HorizontalScope())

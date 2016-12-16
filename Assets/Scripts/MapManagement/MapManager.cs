@@ -10,8 +10,6 @@ namespace MapManagement
   public class MapManager : MonoBehaviour {
     public Vector3 OffsetOrigin;
     public MAP_ALIGN_MODE AlignMode;
-    MAP_ALIGN_MODE alignModePrev;
-    UnityEvent OnGUIChanged;
 
     public int CellRowNumber;
     public int CellColNumber;
@@ -24,17 +22,7 @@ namespace MapManagement
       MAP_CELL_TYPE.PLAIN,
       MAP_CELL_TYPE.SEA
     };
-
-    [Space(10)]
-    public GameObject TerrainCellPrefab;
-    public List<GameObject> TerrainCellList;
-    public int TerrainDumpStartPoint = 10;
-    public int TerrainDumpMin = 1;
-    public int TerrainDumpMax = 3;
-
-    [Range(0.0F, 2.0F)]
-    public float GenerateTerrainProcedureSeconds = 0.5F;
-
+      
     public TerrainCellsGenerator TCG;
 
 
@@ -51,7 +39,6 @@ namespace MapManagement
     {
       this.Clear ();
       this.BasicCellList = new GameObject[CellRowNumber,CellColNumber];
-      this.TerrainCellList = new List<GameObject> ();
 
       this.AdjustAlign ();
 
@@ -62,11 +49,7 @@ namespace MapManagement
 
     public void Clear()
     {
-      if (this.TerrainCellList != null) {
-        this.TerrainCellList.ForEach (item => DestroyImmediate (item));
-        this.TerrainCellList.Clear ();
-        this.TerrainCellList = null;
-      }
+      this.TCG.Clear ();
 
       if (BasicCellList != null) {
         foreach (var cell in BasicCellList) {
@@ -86,21 +69,6 @@ namespace MapManagement
         DestroyImmediate (_checkList [i]);
       }
 
-    }
-
-    public void RoundRowCol()
-    {
-      if (CellRowNumber < 0)
-        CellRowNumber = 0;
-
-      if (CellColNumber < 0)
-        CellColNumber = 0;
-
-      if ((CellRowNumber % 2) != 0)
-        CellRowNumber--;
-
-      if ((CellColNumber % 2) != 0)
-        CellColNumber--;
     }
 
     public void AdjustAlign()
@@ -180,7 +148,7 @@ namespace MapManagement
       int _row = Random.Range(0, this.CellRowNumber);
       int _col = Random.Range(0, this.CellColNumber);
 
-      int _dumpStart = this.TerrainDumpStartPoint;
+      int _dumpStart = this.TCG.TerrainDumpStartPoint;
       Debug.LogFormat ("Sea row = {0}, col = {1}", _row, _col);
 
       GameObject _baseObj = this.BasicCellList [_row, _col];
@@ -192,6 +160,26 @@ namespace MapManagement
       float _time = Time.realtimeSinceStartup - _startTime;
       Debug.LogFormat ("GenerateSea Cost time: {0:f6}", _time);
     }
+
+    /*
+    public void RoundRowCol()
+    {
+      if (CellRowNumber < 0)
+        CellRowNumber = 0;
+
+      if (CellColNumber < 0)
+        CellColNumber = 0;
+
+      if ((CellRowNumber % 2) != 0)
+        CellRowNumber--;
+
+      if ((CellColNumber % 2) != 0)
+        CellColNumber--;
+    }
+    */
+
+
+    MAP_ALIGN_MODE alignModePrev;
   }
 
 }
