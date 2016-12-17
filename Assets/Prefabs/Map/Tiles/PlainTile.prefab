@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010201650874}
   - 212: {fileID: 212000012817835044}
-  - 114: {fileID: 114000013544662322}
+  - 114: {fileID: 114000012854577410}
   m_Layer: 0
-  m_Name: PlainCell
+  m_Name: PlainTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &114000013544662322
+--- !u!114 &114000012854577410
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -49,14 +49,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010727788468}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 437b9ac16c97b5d429ae02d0d5d70307, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a25e86f24775954d8e31491039fc6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MapCellType: 1
+  Order: 1
   NeighboursCross: []
-  OriginPosition: {x: 0, y: 0, z: 0}
-  OffsetPosition: {x: 0, y: 0, z: 0}
-  DumpNumber: 0
 --- !u!212 &212000012817835044
 SpriteRenderer:
   m_ObjectHideFlags: 1

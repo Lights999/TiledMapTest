@@ -5,9 +5,9 @@ using ConstCollections.PJEnums;
 
 namespace MapManagement
 {
-  public class BasicCell : MonoBehaviour {
+  public class BasicTile : MonoBehaviour {
 
-    public MAP_CELL_TYPE MapCellType = MAP_CELL_TYPE.BASIC;
+    public MAP_TILE_TYPE MapCellType = MAP_TILE_TYPE.BASIC;
     public List<GameObject> NeighboursCross;
     public Vector3 OriginPosition;
     public Vector3 OffsetPosition;

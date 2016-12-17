@@ -13,13 +13,13 @@ namespace MapManagement
     public Vector3 Offset;
     public MAP_ALIGN_MODE AlignMode;
 
-    public GameObject BasicCellPrefab;
-    public GameObject[,] BasicCellList;
-    public int CellRowNumber;
-    public int CellColNumber;
+    public GameObject BasicTilePrefab;
+    public GameObject[,] BasicTileList;
+    public int TileRowNumber;
+    public int TileColNumber;
     public int GridSideLength = 1;
 
-    public TerrainCellsGenerator[] TCGArray;
+    public TerrainTilesGenerator[] TCGArray;
 
 
     // Use this for initialization
@@ -33,19 +33,19 @@ namespace MapManagement
 
     public void GetTerrainCellsGenerators()
     {
-      this.TCGArray = GetComponentsInChildren<TerrainCellsGenerator> ();
+      this.TCGArray = GetComponentsInChildren<TerrainTilesGenerator> ();
     }
 
     public void InitBasicCell()
     {
       this.Clear ();
-      this.BasicCellList = new GameObject[CellRowNumber,CellColNumber];
+      this.BasicTileList = new GameObject[TileRowNumber,TileColNumber];
 
-      this.GenerateBasicCells ();
-      this.SetBasicCellsNeighbours ();
+      this.GenerateBasicTiles ();
+      this.SetBasicTilesNeighbours ();
 
       this.AdjustAlign ();
-      this.SetBasicCellsPosition ();
+      //this.SetBasicTilesPosition ();
     }
 
     public void Clear()
@@ -56,7 +56,7 @@ namespace MapManagement
         DestroyImmediate (this.MapRootObject);
       }
 
-      this.BasicCellList = null;
+      this.BasicTileList = null;
     }
 
     public void AdjustAlign()
@@ -67,16 +67,16 @@ namespace MapManagement
         Offset = Vector3.zero;
         break;
       case MAP_ALIGN_MODE.CENTER:
-        Offset = new Vector3 ((((float)-CellColNumber) / 2.0F) * (float)GridSideLength, ((float)-CellRowNumber / 2.0F) * (float)GridSideLength, 0);
+        Offset = new Vector3 ((((float)-TileColNumber) / 2.0F) * (float)GridSideLength, ((float)-TileRowNumber / 2.0F) * (float)GridSideLength, 0);
         break;
       case MAP_ALIGN_MODE.CUSTOM:
         break;
       }
 
-      this.SetBasicCellsPosition ();
+      this.SetBasicTilesPosition ();
     }
 
-    public void GenerateBasicCells()
+    public void GenerateBasicTiles()
     {
       if (this.MapRootObject == null) {
         this.MapRootObject = new GameObject (this.MapRootName);//, this.transform, false) as GameObject;
@@ -85,13 +85,13 @@ namespace MapManagement
         this.MapRootObject.transform.localRotation = Quaternion.identity;
       }
 
-      for (int _row = 0; _row < this.CellRowNumber; _row++) {
-        for (int _col = 0; _col < this.CellColNumber; _col++) {
+      for (int _row = 0; _row < this.TileRowNumber; _row++) {
+        for (int _col = 0; _col < this.TileColNumber; _col++) {
 
-          GameObject _basicInstance =  GameObject.Instantiate (this.BasicCellPrefab, this.MapRootObject.transform, false) as GameObject;
-          this.BasicCellList [_row, _col] = _basicInstance;
+          GameObject _basicInstance =  GameObject.Instantiate (this.BasicTilePrefab, this.MapRootObject.transform, false) as GameObject;
+          this.BasicTileList [_row, _col] = _basicInstance;
 
-          BasicCell _basicCell = _basicInstance.GetComponent<BasicCell> ();
+          BasicTile _basicCell = _basicInstance.GetComponent<BasicTile> ();
           _basicCell.Init (_row, _col, this.GridSideLength); 
 
         }
@@ -99,35 +99,35 @@ namespace MapManagement
 
     }
 
-    public void SetBasicCellsNeighbours()
+    public void SetBasicTilesNeighbours()
     {
-      for (int _row = 0; _row < this.CellRowNumber; _row++) {
-        for (int _col = 0; _col < this.CellColNumber; _col++) {
+      for (int _row = 0; _row < this.TileRowNumber; _row++) {
+        for (int _col = 0; _col < this.TileColNumber; _col++) {
 
-          if (_row + 1 < this.CellRowNumber) {
-            GameObject _Top = this.BasicCellList [_row + 1, _col];
-            this.BasicCellList [_row, _col].GetComponent<BasicCell>().AddNeighboursCross (_Top);
+          if (_row + 1 < this.TileRowNumber) {
+            GameObject _Top = this.BasicTileList [_row + 1, _col];
+            this.BasicTileList [_row, _col].GetComponent<BasicTile>().AddNeighboursCross (_Top);
           }
 
           if (_row - 1 >= 0) {
-            GameObject _Bottom = this.BasicCellList [_row - 1, _col];
-            this.BasicCellList [_row, _col].GetComponent<BasicCell>().AddNeighboursCross (_Bottom);
+            GameObject _Bottom = this.BasicTileList [_row - 1, _col];
+            this.BasicTileList [_row, _col].GetComponent<BasicTile>().AddNeighboursCross (_Bottom);
           }
 
-          if (_col + 1 < this.CellColNumber) {
-            GameObject _Right = this.BasicCellList [_row, _col + 1];
-            this.BasicCellList [_row, _col].GetComponent<BasicCell>().AddNeighboursCross (_Right);
+          if (_col + 1 < this.TileColNumber) {
+            GameObject _Right = this.BasicTileList [_row, _col + 1];
+            this.BasicTileList [_row, _col].GetComponent<BasicTile>().AddNeighboursCross (_Right);
           }
 
           if (_col - 1 >= 0) {
-            GameObject _Left = this.BasicCellList [_row, _col - 1];
-            this.BasicCellList [_row, _col].GetComponent<BasicCell>().AddNeighboursCross (_Left);
+            GameObject _Left = this.BasicTileList [_row, _col - 1];
+            this.BasicTileList [_row, _col].GetComponent<BasicTile>().AddNeighboursCross (_Left);
           }
         }
       }
     }
 
-    public void SetBasicCellsPosition()
+    public void SetBasicTilesPosition()
     {
       if(this.MapRootObject != null)
         this.MapRootObject.transform.localPosition = this.Offset;
@@ -143,20 +143,20 @@ namespace MapManagement
       }
     }
 
-    public void GenerateTerrain(TerrainCellsGenerator tcg)
+    public void GenerateTerrain(TerrainTilesGenerator tcg)
     {
-      foreach (var cell in BasicCellList) {
-        cell.GetComponent<BasicCell>().DumpNumber = 0;
+      foreach (var cell in BasicTileList) {
+        cell.GetComponent<BasicTile>().DumpNumber = 0;
       }
 
       // Decide a point
-      int _row = Random.Range(0, this.CellRowNumber);
-      int _col = Random.Range(0, this.CellColNumber);
+      int _row = Random.Range(0, this.TileRowNumber);
+      int _col = Random.Range(0, this.TileColNumber);
 
       int _dumpStart = tcg.TerrainDumpStartPoint;
       Debug.LogFormat ("Sea row = {0}, col = {1}", _row, _col);
 
-      GameObject _baseObj = this.BasicCellList [_row, _col];
+      GameObject _baseObj = this.BasicTileList [_row, _col];
 
       float _startTime = Time.realtimeSinceStartup;
 

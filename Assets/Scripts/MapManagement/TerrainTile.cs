@@ -6,15 +6,15 @@ using System.Linq;
 
 namespace MapManagement
 {
-  public class TerrainCell : MonoBehaviour 
+  public class TerrainTile : MonoBehaviour 
   {
-    public MAP_CELL_TYPE MapCellType = MAP_CELL_TYPE.BASIC;
-    public MAP_CELL_ORDER Order = MAP_CELL_ORDER.TERRAIN;
+    public MAP_TILE_TYPE MapCellType = MAP_TILE_TYPE.BASIC;
+    public MAP_TILE_ORDER Order = MAP_TILE_ORDER.TERRAIN;
     public List<GameObject> NeighboursCross;
 
     public void Start()
     {
-      this.basicCell = this.GetComponentInParent<BasicCell> ();
+      this.basicCell = this.GetComponentInParent<BasicTile> ();
       GetComponent<SpriteRenderer> ().sortingOrder = (int)Order;
       this.NeighboursCross = new List<GameObject> ();
     }
@@ -23,7 +23,7 @@ namespace MapManagement
     {
       this.NeighboursCross.Clear ();
       this.basicCell.NeighboursCross.ForEach (cell => {
-        TerrainCell _terrainCell = cell.GetComponentInChildren<TerrainCell>();
+        TerrainTile _terrainCell = cell.GetComponentInChildren<TerrainTile>();
 
         if(_terrainCell == null)
           return;
@@ -35,7 +35,7 @@ namespace MapManagement
       });
     }
 
-    BasicCell basicCell;
+    BasicTile basicCell;
   }
 }
 

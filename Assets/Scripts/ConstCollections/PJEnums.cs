@@ -9,7 +9,7 @@ namespace ConstCollections.PJEnums
     CUSTOM,
   }
 
-  public enum MAP_CELL_TYPE
+  public enum MAP_TILE_TYPE
   {
     BASIC = 0,
     PLAIN,
@@ -20,7 +20,7 @@ namespace ConstCollections.PJEnums
     DESERT
   }
 
-  public enum MAP_CELL_ORDER
+  public enum MAP_TILE_ORDER
   {
     BASIC = 0,
     TERRAIN,

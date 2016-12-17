@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEditor;
 using ConstCollections;
+using ConstCollections.PJEnums;
 
 namespace MapManagement.Editor
 {
@@ -11,9 +12,11 @@ namespace MapManagement.Editor
   [UnityEditor.CustomEditor(typeof(MapManager))]
   public class MapManagerEditor : UnityEditor.Editor 
   {
+
     void OnEnable()
     {
       script = (MapManager)target;
+      //this.AdjustAlign (this.AlignMode);
     }
 
     [DrawGizmo (GizmoType.Selected | GizmoType.Active)]
@@ -27,9 +30,9 @@ namespace MapManagement.Editor
       float _coastTime = 0.0F;
 
       //Draw row 
-      for (int _row = 0; _row < mapManager.CellRowNumber + 1; _row++) {
+      for (int _row = 0; _row < mapManager.TileRowNumber + 1; _row++) {
         Vector3 _start = new Vector3 (0, _row * gridSideLength, 0);
-        Vector3 _end = new Vector3 (mapManager.CellColNumber * gridSideLength, _row * gridSideLength, 0);
+        Vector3 _end = new Vector3 (mapManager.TileColNumber * gridSideLength, _row * gridSideLength, 0);
         Vector3 _offsetStart = _start + mapManager.Offset; // Convert to offset coordinate
         Vector3 _offsetEnd = _end + mapManager.Offset; // Convert to offset coordinate
         Gizmos.DrawLine (mapManager.transform.position + _offsetStart, mapManager.transform.position + _offsetEnd);
@@ -40,9 +43,9 @@ namespace MapManagement.Editor
       }
 
       //Draw col 
-      for (int _col = 0; _col < mapManager.CellColNumber + 1; _col++) {
+      for (int _col = 0; _col < mapManager.TileColNumber + 1; _col++) {
         Vector3 _start = new Vector3 (_col * gridSideLength, 0, 0);
-        Vector3 _end = new Vector3 ( _col * gridSideLength, mapManager.CellRowNumber * gridSideLength, 0);
+        Vector3 _end = new Vector3 ( _col * gridSideLength, mapManager.TileRowNumber * gridSideLength, 0);
         Vector3 _offsetStart = _start + mapManager.Offset; // Convert to offset coordinate
         Vector3 _offsetEnd = _end + mapManager.Offset; // Convert to offset coordinate
         Gizmos.DrawLine (mapManager.transform.position + _offsetStart, mapManager.transform.position + _offsetEnd);
@@ -58,8 +61,6 @@ namespace MapManagement.Editor
         Debug.LogFormat ("DrawGizmoGrid Cost time: {0:f6}", _coastTime);
 
       Gizmos.color = _oldColor;
-
-      //EditorUtility.SetDirty (mapManager);
 
     }
 
@@ -82,7 +83,7 @@ namespace MapManagement.Editor
 
       GUILayout.TextArea("",GUI.skin.horizontalSlider);
 
-      using(new GUILayout.HorizontalScope())
+      using(new EditorGUILayout.HorizontalScope())
       {
         if (GUILayout.Button ("Init")) 
         {
@@ -95,17 +96,19 @@ namespace MapManagement.Editor
         }
       }
         
-
       if (GUILayout.Button("Generate Sub-Cell")) 
       {
         script.GenerateTerrains();
       }
 
+//      this.AlignMode = (MAP_ALIGN_MODE)EditorGUILayout.EnumPopup ("AlignMode",AlignMode);
+
       showGizmoInfo = GUILayout.Toggle (showGizmoInfo, "Show Gizmo Info");
-      //EditorGUILayout.SelectableLabel ("Select");
+
     }
 
     MapManager script;
+
     static bool showGizmoInfo = false;
   }
 

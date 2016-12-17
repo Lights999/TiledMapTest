@@ -6,14 +6,15 @@ using ConstCollections;
 namespace MapManagement.Editor
 {
   [UnityEditor.CanEditMultipleObjects]
-  [UnityEditor.CustomEditor(typeof(TerrainCellsGenerator))]
-  public class TerrainCellsGeneratorEditor : UnityEditor.Editor
+  [UnityEditor.CustomEditor(typeof(TerrainTilesGenerator))]
+  public class TerrainTilesGeneratorEditor : UnityEditor.Editor
   {
     void OnEnable()
     {
-      script = (TerrainCellsGenerator)target;
+      script = (TerrainTilesGenerator)target;
     }
 
+    /*
     public override void OnInspectorGUI() 
     {
 
@@ -22,10 +23,10 @@ namespace MapManagement.Editor
       if (Application.isPlaying)
         return;
 
-    }
+    }*/
 
 
-    TerrainCellsGenerator script;
+    TerrainTilesGenerator script;
   }
 }
 

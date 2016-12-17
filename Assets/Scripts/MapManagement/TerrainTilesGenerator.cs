@@ -6,21 +6,21 @@ using UnityEngine.Events;
 
 namespace MapManagement
 {
-  public class TerrainCellsGenerator : MonoBehaviour 
+  public class TerrainTilesGenerator : MonoBehaviour 
   {
-    public MAP_CELL_TYPE MapCellType;
+    public MAP_TILE_TYPE MapTileType;
 
-    public GameObject TerrainCellPrefab;
-    public List<GameObject> TerrainCellList;
+    public GameObject TerrainTilePrefab;
+    public List<GameObject> TerrainTileList;
     public int TerrainDumpStartPoint = 10;
     public int TerrainDumpMin = 1;
     public int TerrainDumpMax = 3;
 
     public void Clear()
     {
-      if (this.TerrainCellList != null) {
-        this.TerrainCellList.ForEach (item => DestroyImmediate (item));
-        this.TerrainCellList.Clear ();
+      if (this.TerrainTileList != null) {
+        this.TerrainTileList.ForEach (item => DestroyImmediate (item));
+        this.TerrainTileList.Clear ();
         //this.TerrainCellList = null;
       }
     }
@@ -33,7 +33,7 @@ namespace MapManagement
       GameObject _root = parentObj;
       Queue<GameObject> _openQueue = new Queue<GameObject> ();
       HashSet<GameObject> _closedList = new HashSet<GameObject> ();
-      _root.GetComponent<BasicCell> ().DumpNumber = dumpStart;
+      _root.GetComponent<BasicTile> ().DumpNumber = dumpStart;
       _openQueue.Enqueue (_root);
 
       while (_openQueue.Count > 0) {
@@ -44,7 +44,7 @@ namespace MapManagement
     public void CheckQueue (Queue<GameObject> openQueue, HashSet<GameObject> closedList)
     {
       GameObject _baseObj = openQueue.Dequeue ();
-      int _baseDump = _baseObj.GetComponent<BasicCell> ().DumpNumber;
+      int _baseDump = _baseObj.GetComponent<BasicTile> ().DumpNumber;
       if (_baseDump <= 0)
         return;
 
@@ -54,19 +54,19 @@ namespace MapManagement
         Transform _terrainTrans =  _baseObj.transform.GetChild (0);
         //MAP_TILE_CONFLIC_SOLUTION = REPLACE
         DestroyImmediate (_terrainTrans.gameObject);
-        GameObject _terrainObj = GameObject.Instantiate (this.TerrainCellPrefab, _baseObj.transform, false) as GameObject;
-        this.TerrainCellList.Add (_terrainObj);
+        GameObject _terrainObj = GameObject.Instantiate (this.TerrainTilePrefab, _baseObj.transform, false) as GameObject;
+        this.TerrainTileList.Add (_terrainObj);
       } 
       else 
       {
-        GameObject _terrainObj = GameObject.Instantiate (this.TerrainCellPrefab, _baseObj.transform, false) as GameObject;
-        this.TerrainCellList.Add (_terrainObj);
+        GameObject _terrainObj = GameObject.Instantiate (this.TerrainTilePrefab, _baseObj.transform, false) as GameObject;
+        this.TerrainTileList.Add (_terrainObj);
       }
 
       if (!closedList.Contains (_baseObj))
         closedList.Add (_baseObj);
 
-      BasicCell _parentScript = _baseObj.GetComponent<BasicCell> ();
+      BasicTile _parentScript = _baseObj.GetComponent<BasicTile> ();
       if (!_parentScript.HasNeighboursCross ()) 
       {
         return;
@@ -80,7 +80,7 @@ namespace MapManagement
 
         int _nextDumper = _baseDump - _dumpStep;
         if (_nextDumper <= 0) {
-          _neighbourObj.GetComponent<BasicCell> ().DumpNumber = 0;
+          _neighbourObj.GetComponent<BasicTile> ().DumpNumber = 0;
 
           if (!closedList.Contains (_neighbourObj))
             closedList.Add (_neighbourObj);
@@ -91,7 +91,7 @@ namespace MapManagement
         if (openQueue.Contains (_neighbourObj))
           continue;
 
-        _neighbourObj.GetComponent<BasicCell> ().DumpNumber = _nextDumper;
+        _neighbourObj.GetComponent<BasicTile> ().DumpNumber = _nextDumper;
         openQueue.Enqueue (_neighbourObj);
       }
     }
@@ -165,9 +165,15 @@ namespace MapManagement
 
   }
 
-  public enum MAP_TILE_CONFLICT_SOLUTION
+  public enum TILE_CONFLICT_SOLUTION
   {
     REPLACE,
     SKIP
+  }
+
+  public enum GENERATE_MODE
+  {
+    FULL_FILL,
+    RANDOM
   }
 }
