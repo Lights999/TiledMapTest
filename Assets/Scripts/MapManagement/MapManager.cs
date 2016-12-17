@@ -49,11 +49,7 @@ namespace MapManagement
 
     public void Clear()
     {
-      if (this.TCGArray != null) {
-        for (int i = 0; i < this.TCGArray.Length; i++) {
-          this.TCGArray [i].Clear();
-        }
-      }
+      this.ClearTerrain ();
         
       if (this.MapRootObject != null) 
       {
@@ -61,6 +57,15 @@ namespace MapManagement
       }
 
       this.BasicTileList = null;
+    }
+
+    public void ClearTerrain()
+    {
+      if (this.TCGArray != null) {
+        for (int i = 0; i < this.TCGArray.Length; i++) {
+          this.TCGArray [i].Clear();
+        }
+      }
     }
 
     public void AdjustAlign()
@@ -141,6 +146,8 @@ namespace MapManagement
     {
       if (this.TCGArray == null)
         return;
+
+      this.ClearTerrain ();
 
       float _startTime = Time.realtimeSinceStartup;
 

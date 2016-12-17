@@ -105,7 +105,7 @@ Prefab:
     - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
         type: 2}
       propertyPath: TerrainTileList.Array.size
-      value: 0
+      value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
         type: 2}
@@ -449,6 +449,101 @@ Prefab:
       propertyPath: FillMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
+        type: 2}
+      propertyPath: TerrainTileList.Array.data[54]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
+        type: 2}
+      propertyPath: TerrainTileList.Array.data[55]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
+        type: 2}
+      propertyPath: TerrainTileList.Array.data[56]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
+        type: 2}
+      propertyPath: TerrainTileList.Array.data[57]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
+        type: 2}
+      propertyPath: TerrainTileList.Array.data[58]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
+        type: 2}
+      propertyPath: TerrainTileList.Array.data[59]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
+        type: 2}
+      propertyPath: TerrainTileList.Array.data[60]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
+        type: 2}
+      propertyPath: TerrainTileList.Array.data[61]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
+        type: 2}
+      propertyPath: TerrainTileList.Array.data[62]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
+        type: 2}
+      propertyPath: TerrainTileList.Array.data[63]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
+        type: 2}
+      propertyPath: TerrainTileList.Array.data[64]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
+        type: 2}
+      propertyPath: TerrainTileList.Array.data[65]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
+        type: 2}
+      propertyPath: TerrainTileList.Array.data[66]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
+        type: 2}
+      propertyPath: TerrainTileList.Array.data[67]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
+        type: 2}
+      propertyPath: TerrainTileList.Array.data[68]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
+        type: 2}
+      propertyPath: TerrainTileList.Array.data[69]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
+        type: 2}
+      propertyPath: TerrainTileList.Array.data[70]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
+        type: 2}
+      propertyPath: TerrainTileList.Array.data[71]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011871898844, guid: 7d6ce22c7b5372d459133dccd8db502e,
+        type: 2}
+      propertyPath: TerrainDumpStartPoint
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7d6ce22c7b5372d459133dccd8db502e, type: 2}
   m_IsPrefabParent: 0
@@ -565,12 +660,12 @@ Prefab:
     - target: {fileID: 114000012001394780, guid: fa3066eb6fcc79e4eb154122f4077e9e,
         type: 2}
       propertyPath: FillReplaceableTypes.Array.size
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114000012001394780, guid: fa3066eb6fcc79e4eb154122f4077e9e,
         type: 2}
       propertyPath: SpawnReplaceableTypes.Array.size
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4000013473892514, guid: fa3066eb6fcc79e4eb154122f4077e9e, type: 2}
       propertyPath: m_LocalPosition.x
@@ -4984,12 +5079,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapRootObject: {fileID: 0}
   MapRootName: MapRootObject
-  Offset: {x: 0, y: 0, z: 0}
-  AlignMode: 0
+  Offset: {x: -50, y: -50, z: 0}
+  AlignMode: 1
   BasicTilePrefab: {fileID: 1000013091201318, guid: 30b3e6b07ad2f8d4b8b19fe1ca02ba37,
     type: 2}
-  TileRowNumber: 20
-  TileColNumber: 20
+  TileRowNumber: 100
+  TileColNumber: 100
   GridSideLength: 1
   TCGArray:
   - {fileID: 374175960}

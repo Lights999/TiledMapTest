@@ -84,7 +84,7 @@ namespace MapManagement.Editor
 
       using(new EditorGUILayout.HorizontalScope())
       {
-        if (GUILayout.Button ("Init")) 
+        if (GUILayout.Button ("Init Basic Tiles")) 
         {
           script.InitBasicCell ();
         }
@@ -95,7 +95,7 @@ namespace MapManagement.Editor
         }
       }
         
-      if (GUILayout.Button("Generate Sub-Cell")) 
+      if (GUILayout.Button("Generate Terrain")) 
       {
         script.GenerateTerrains();
       }

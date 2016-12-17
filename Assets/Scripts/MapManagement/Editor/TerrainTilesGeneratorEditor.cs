@@ -13,7 +13,7 @@ namespace MapManagement.Editor
   {
     void OnEnable()
     {
-      script = (TerrainTilesGenerator)target;
+      //script = (TerrainTilesGenerator)target;
     }
 
 
@@ -29,7 +29,7 @@ namespace MapManagement.Editor
     }
 
 
-    TerrainTilesGenerator script;
+    //TerrainTilesGenerator script;
     //MAP_TILE_TYPE spawnReplaceableTypes;
   }
 }
