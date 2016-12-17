@@ -22,8 +22,8 @@ namespace MapManagement
     public void RefreshNeighboursCross()
     {
       this.NeighboursCross.Clear ();
-      this.basicCell.NeighboursCross.ForEach (cell => {
-        TerrainTile _terrainCell = cell.GetComponentInChildren<TerrainTile>();
+      this.basicCell.Neighbours.ForEach (cell => {
+        TerrainTile _terrainCell = cell.TileObject.GetComponentInChildren<TerrainTile>();
 
         if(_terrainCell == null)
           return;

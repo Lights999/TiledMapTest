@@ -9,7 +9,7 @@ namespace MapManagement
   public class BasicTile : MonoBehaviour {
     public MAP_TILE_ORDER Order = MAP_TILE_ORDER.BASIC;
     public MAP_TILE_TYPE MapCellType = MAP_TILE_TYPE.BASIC;
-    public List<GameObject> NeighboursCross;
+    public List<NeighbourTile> Neighbours;
     public Vector3 OriginPosition;
     public Vector3 OffsetPosition;
     public Index2D Index;
@@ -17,12 +17,12 @@ namespace MapManagement
 
     void Awake()
     {
-      this.NeighboursCross = new List<GameObject> ();
+      this.Neighbours = new List<NeighbourTile> ();
     }
 
     void OnDrawGizmos() {
 
-      DrawNeighboursCross ();
+      DrawNeighbours ();
     }
 
 
@@ -43,29 +43,29 @@ namespace MapManagement
       this.transform.localPosition = this.OriginPosition + this.OffsetPosition;
     }
 
-    public void AddNeighboursCross(GameObject obj)
+    public void AddNeighbour(NeighbourTile neighbourTile)
     {
-      this.NeighboursCross.Add (obj);
+      this.Neighbours.Add (neighbourTile);
     }
 
-    public bool HasNeighboursCross()
+    public bool HasNeighbour()
     {
-      return this.NeighboursCross != null && this.NeighboursCross.Count > 0;
+      return this.Neighbours != null && this.Neighbours.Count > 0;
     }
 
-    void DrawNeighboursCross()
+    void DrawNeighbours()
     {
       Color _oldColor = Gizmos.color;
       Gizmos.color = Color.red;
 
-      foreach (var neighbour in NeighboursCross) {
+      foreach (var neighbour in Neighbours) {
         if (neighbour == null)
           continue;
 
-        if (neighbour.transform.childCount != 0)
+        if (neighbour.TileObject.transform.childCount != 0)
           continue;
         
-        Vector3 _line = neighbour.transform.position - this.transform.position;
+        Vector3 _line = neighbour.TileObject.transform.position - this.transform.position;
         Vector3 _to = this.transform.position + _line.normalized * _line.magnitude * 0.2f;
         Gizmos.DrawLine (this.transform.position, _to);
       }

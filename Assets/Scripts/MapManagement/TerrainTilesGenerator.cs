@@ -17,6 +17,11 @@ namespace MapManagement
     public MAP_TILE_TYPE[] SpawnReplaceableTypes = {MAP_TILE_TYPE.BASIC, MAP_TILE_TYPE.PLAIN};
     public MAP_TILE_TYPE[] FillReplaceableTypes = {MAP_TILE_TYPE.BASIC, MAP_TILE_TYPE.PLAIN};
 
+    public TerrainTileDumpper UpDumpper;
+    public TerrainTileDumpper DownDumpper;
+    public TerrainTileDumpper LeftDumpper;
+    public TerrainTileDumpper RightDumpper;
+
     public int TerrainDumpStartPoint = 10;
     public int TerrainDumpMin = 1;
     public int TerrainDumpMax = 3;
@@ -136,32 +141,32 @@ namespace MapManagement
         closedList.Add (_baseObj);
 
       BasicTile _parentScript = _baseObj.GetComponent<BasicTile> ();
-      if (!_parentScript.HasNeighboursCross ()) 
+      if (!_parentScript.HasNeighbour ()) 
       {
         return;
       }
 
-      foreach (var _neighbourObj in _parentScript.NeighboursCross) 
+      foreach (var _neighbourTile in _parentScript.Neighbours) 
       {
         int _dumpStep = Random.Range (this.TerrainDumpMin, this.TerrainDumpMax);
-        if (closedList.Contains (_neighbourObj))
+        if (closedList.Contains (_neighbourTile.TileObject))
           continue;
 
         int _nextDumper = _baseDump - _dumpStep;
         if (_nextDumper <= 0) {
-          _neighbourObj.GetComponent<BasicTile> ().DumpNumber = 0;
+          _neighbourTile.TileObject.GetComponent<BasicTile> ().DumpNumber = 0;
 
-          if (!closedList.Contains (_neighbourObj))
-            closedList.Add (_neighbourObj);
+          if (!closedList.Contains (_neighbourTile.TileObject))
+            closedList.Add (_neighbourTile.TileObject);
 
           continue;
         }
 
-        if (openQueue.Contains (_neighbourObj))
+        if (openQueue.Contains (_neighbourTile.TileObject))
           continue;
 
-        _neighbourObj.GetComponent<BasicTile> ().DumpNumber = _nextDumper;
-        openQueue.Enqueue (_neighbourObj);
+        _neighbourTile.TileObject.GetComponent<BasicTile> ().DumpNumber = _nextDumper;
+        openQueue.Enqueue (_neighbourTile.TileObject);
       }
     }
 

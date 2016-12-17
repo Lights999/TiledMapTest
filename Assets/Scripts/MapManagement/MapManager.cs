@@ -115,22 +115,22 @@ namespace MapManagement
 
           if (_row + 1 < this.TileRowNumber) {
             GameObject _Top = this.BasicTileList [_row + 1, _col];
-            this.BasicTileList [_row, _col].GetComponent<BasicTile>().AddNeighboursCross (_Top);
+            this.BasicTileList [_row, _col].GetComponent<BasicTile>().AddNeighbour (new NeighbourTile(TILE_DIRECTION.UP, _Top));
           }
 
           if (_row - 1 >= 0) {
             GameObject _Bottom = this.BasicTileList [_row - 1, _col];
-            this.BasicTileList [_row, _col].GetComponent<BasicTile>().AddNeighboursCross (_Bottom);
+            this.BasicTileList [_row, _col].GetComponent<BasicTile>().AddNeighbour (new NeighbourTile(TILE_DIRECTION.DOWN, _Bottom));
           }
 
           if (_col + 1 < this.TileColNumber) {
             GameObject _Right = this.BasicTileList [_row, _col + 1];
-            this.BasicTileList [_row, _col].GetComponent<BasicTile>().AddNeighboursCross (_Right);
+            this.BasicTileList [_row, _col].GetComponent<BasicTile>().AddNeighbour (new NeighbourTile(TILE_DIRECTION.RIGHT,_Right));
           }
 
           if (_col - 1 >= 0) {
             GameObject _Left = this.BasicTileList [_row, _col - 1];
-            this.BasicTileList [_row, _col].GetComponent<BasicTile>().AddNeighboursCross (_Left);
+            this.BasicTileList [_row, _col].GetComponent<BasicTile>().AddNeighbour (new NeighbourTile(TILE_DIRECTION.LEFT,_Left));
           }
         }
       }
