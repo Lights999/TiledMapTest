@@ -45,7 +45,6 @@ namespace MapManagement
       this.SetBasicTilesNeighbours ();
 
       this.AdjustAlign ();
-      //this.SetBasicTilesPosition ();
     }
 
     public void Clear()
@@ -53,13 +52,9 @@ namespace MapManagement
       if (this.TCGArray != null) {
         for (int i = 0; i < this.TCGArray.Length; i++) {
           this.TCGArray [i].Clear();
-          //this.GenerateTerrain (this.TCGArray [i]);
         }
       }
-
-
-
-
+        
       if (this.MapRootObject != null) 
       {
         DestroyImmediate (this.MapRootObject);
@@ -146,34 +141,15 @@ namespace MapManagement
     {
       if (this.TCGArray == null)
         return;
-      
-      for (int i = 0; i < this.TCGArray.Length; i++) {
-        this.TCGArray [i].GenerateTerrain (this);
-        //this.GenerateTerrain (this.TCGArray [i]);
-      }
-    }
-
-    public void GenerateTerrain(TerrainTilesGenerator tcg)
-    {
-      foreach (var cell in BasicTileList) {
-        cell.GetComponent<BasicTile>().DumpNumber = 0;
-      }
-
-      // Decide a point
-      int _row = Random.Range(0, this.TileRowNumber);
-      int _col = Random.Range(0, this.TileColNumber);
-
-      int _dumpStart = tcg.TerrainDumpStartPoint;
-      Debug.LogFormat ("Sea row = {0}, col = {1}", _row, _col);
-
-      GameObject _baseObj = this.BasicTileList [_row, _col];
 
       float _startTime = Time.realtimeSinceStartup;
 
-      tcg.GenerateTilesRandomExpandly(_baseObj, _dumpStart);
+      for (int i = 0; i < this.TCGArray.Length; i++) {
+        this.TCGArray [i].GenerateTerrain (this);
+      }
 
       float _time = Time.realtimeSinceStartup - _startTime;
-      Debug.LogFormat ("GenerateSea Cost time: {0:f6}", _time);
+      Debug.LogFormat ("Generate Terrain Cost time: {0:f6}", _time);
     }
 
     /*
