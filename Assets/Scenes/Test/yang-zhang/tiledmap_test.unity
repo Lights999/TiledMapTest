@@ -471,7 +471,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1666588473}
   - 114: {fileID: 1666588474}
-  - 114: {fileID: 1666588475}
   m_Layer: 0
   m_Name: MapManager
   m_TagString: Untagged
@@ -489,7 +488,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
+  m_Children:
+  - {fileID: 1715614855}
   m_Father: {fileID: 0}
   m_RootOrder: 1
 --- !u!114 &1666588474
@@ -503,23 +503,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 567035dc47a9ddc4e8898621bee0d990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MapRootObject: {fileID: 0}
+  MapRootName: MapRootObject
   Offset: {x: -50, y: -50, z: 0}
   AlignMode: 1
+  BasicCellPrefab: {fileID: 1000010727788468, guid: 7d04a95eced2bae488392f96a0cf0d2d,
+    type: 2}
   CellRowNumber: 100
   CellColNumber: 100
   GridSideLength: 1
-  BasicCellPrefab: {fileID: 1000010727788468, guid: 7d04a95eced2bae488392f96a0cf0d2d,
-    type: 2}
-  MapRootObject: {fileID: 0}
-  MapRootName: MapRootObject
-  TerrainGenerateOrder: 0100000002000000
-  TCG: {fileID: 1666588475}
---- !u!114 &1666588475
+  TCGArray:
+  - {fileID: 1715614856}
+--- !u!1 &1715614854
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1715614855}
+  - 114: {fileID: 1715614856}
+  m_Layer: 0
+  m_Name: SeaGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1715614855
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1715614854}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1666588473}
+  m_RootOrder: 0
+--- !u!114 &1715614856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1666588472}
+  m_GameObject: {fileID: 1715614854}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9a6a15569210044986e01fd25aa93fc, type: 3}
@@ -528,7 +557,102 @@ MonoBehaviour:
   MapCellType: 2
   TerrainCellPrefab: {fileID: 1000013667560400, guid: 45709ade666734746ac86fdb1eaad5c1,
     type: 2}
-  TerrainCellList: []
+  TerrainCellList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   TerrainDumpStartPoint: 10
   TerrainDumpMin: 1
   TerrainDumpMax: 3

@@ -54,6 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapCellType: 2
   Order: 1
+  NeighboursCross: []
 --- !u!212 &212000012775879074
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -83,7 +84,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3c8543e46a6410e40b5d3e47f8447921, type: 3}
-  m_Color: {r: 0.24978374, g: 0.7021508, b: 0.9705882, a: 1}
+  m_Sprite: {fileID: 21300000, guid: ef1ee963b6c7ced4f8ae7d93615070ba, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

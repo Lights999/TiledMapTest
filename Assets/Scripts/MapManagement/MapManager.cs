@@ -8,42 +8,48 @@ using ConstCollections.PJEnums;
 namespace MapManagement
 {
   public class MapManager : MonoBehaviour {
+    public GameObject MapRootObject;
+    public string MapRootName = "MapRootObject";
     public Vector3 Offset;
     public MAP_ALIGN_MODE AlignMode;
 
+    public GameObject BasicCellPrefab;
+    public GameObject[,] BasicCellList;
     public int CellRowNumber;
     public int CellColNumber;
     public int GridSideLength = 1;
 
-    public GameObject BasicCellPrefab;
-    public GameObject[,] BasicCellList;
 
-    public GameObject MapRootObject;
-    public string MapRootName = "MapRootObject";
 
+
+    /*
     public MAP_CELL_TYPE[] TerrainGenerateOrder = {
       MAP_CELL_TYPE.PLAIN,
       MAP_CELL_TYPE.SEA
     };
+    */
       
-    public TerrainCellsGenerator TCG;
+    public TerrainCellsGenerator[] TCGArray;
 
 
     // Use this for initialization
     void Start () {
-      TCG = GetComponent<TerrainCellsGenerator> ();
+
 
       InitBasicCell ();
-      GenerateTerrain ();
+      GenerateTerrains ();
      
+    }
+
+    public void GetTerrainCellsGenerators()
+    {
+      this.TCGArray = GetComponentsInChildren<TerrainCellsGenerator> ();
     }
 
     public void InitBasicCell()
     {
       this.Clear ();
       this.BasicCellList = new GameObject[CellRowNumber,CellColNumber];
-
-   
 
       this.GenerateBasicCells ();
       this.SetBasicCellsNeighbours ();
@@ -54,7 +60,6 @@ namespace MapManagement
 
     public void Clear()
     {
-      this.TCG.Clear ();
 
       if (this.MapRootObject != null) 
       {
@@ -155,15 +160,21 @@ namespace MapManagement
 
     public void SetBasicCellsPosition()
     {
-      this.MapRootObject.transform.localPosition = this.Offset;
-      /*
-      foreach (var cell in BasicCellList) {
-        cell.GetComponent<BasicCell>().Offset(this.Offset);
-      }
-      */
+      if(this.MapRootObject != null)
+        this.MapRootObject.transform.localPosition = this.Offset;
     }
 
-    public void GenerateTerrain()
+    public void GenerateTerrains()
+    {
+      if (this.TCGArray == null)
+        return;
+      
+      for (int i = 0; i < this.TCGArray.Length; i++) {
+        this.GenerateTerrain (this.TCGArray [i]);
+      }
+    }
+
+    public void GenerateTerrain(TerrainCellsGenerator tcg)
     {
       foreach (var cell in BasicCellList) {
         cell.GetComponent<BasicCell>().DumpNumber = 0;
@@ -173,14 +184,14 @@ namespace MapManagement
       int _row = Random.Range(0, this.CellRowNumber);
       int _col = Random.Range(0, this.CellColNumber);
 
-      int _dumpStart = this.TCG.TerrainDumpStartPoint;
+      int _dumpStart = tcg.TerrainDumpStartPoint;
       Debug.LogFormat ("Sea row = {0}, col = {1}", _row, _col);
 
       GameObject _baseObj = this.BasicCellList [_row, _col];
 
       float _startTime = Time.realtimeSinceStartup;
 
-      TCG.GenerateTerrainCell(_baseObj, _dumpStart);
+      tcg.GenerateTerrainCell(_baseObj, _dumpStart);
 
       float _time = Time.realtimeSinceStartup - _startTime;
       Debug.LogFormat ("GenerateSea Cost time: {0:f6}", _time);

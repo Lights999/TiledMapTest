@@ -76,8 +76,9 @@ namespace MapManagement.Editor
 
       if (Application.isPlaying)
         return;
+      
+      script.GetTerrainCellsGenerators ();
 
-      script.TCG = script.GetComponent<TerrainCellsGenerator> ();
 
       GUILayout.TextArea("",GUI.skin.horizontalSlider);
 
@@ -97,8 +98,7 @@ namespace MapManagement.Editor
 
       if (GUILayout.Button("Generate Sub-Cell")) 
       {
-        script.TCG = script.GetComponent<TerrainCellsGenerator> ();
-          script.GenerateTerrain();
+        script.GenerateTerrains();
       }
 
       showGizmoInfo = GUILayout.Toggle (showGizmoInfo, "Show Gizmo Info");
