@@ -50,6 +50,15 @@ namespace MapManagement
 
     public void Clear()
     {
+      if (this.TCGArray != null) {
+        for (int i = 0; i < this.TCGArray.Length; i++) {
+          this.TCGArray [i].Clear();
+          //this.GenerateTerrain (this.TCGArray [i]);
+        }
+      }
+
+
+
 
       if (this.MapRootObject != null) 
       {
@@ -139,7 +148,8 @@ namespace MapManagement
         return;
       
       for (int i = 0; i < this.TCGArray.Length; i++) {
-        this.GenerateTerrain (this.TCGArray [i]);
+        this.TCGArray [i].GenerateTerrain (this);
+        //this.GenerateTerrain (this.TCGArray [i]);
       }
     }
 
@@ -160,7 +170,7 @@ namespace MapManagement
 
       float _startTime = Time.realtimeSinceStartup;
 
-      tcg.GenerateTerrainCell(_baseObj, _dumpStart);
+      tcg.GenerateTilesRandomExpandly(_baseObj, _dumpStart);
 
       float _time = Time.realtimeSinceStartup - _startTime;
       Debug.LogFormat ("GenerateSea Cost time: {0:f6}", _time);

@@ -2,30 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ConstCollections.PJEnums;
+using Common.PJMath;
 
 namespace MapManagement
 {
   public class BasicTile : MonoBehaviour {
-
+    public MAP_TILE_ORDER Order = MAP_TILE_ORDER.BASIC;
     public MAP_TILE_TYPE MapCellType = MAP_TILE_TYPE.BASIC;
     public List<GameObject> NeighboursCross;
     public Vector3 OriginPosition;
     public Vector3 OffsetPosition;
+    public Index2D Index;
     public int DumpNumber;
 
     void Awake()
     {
       this.NeighboursCross = new List<GameObject> ();
-    }
-
-    // Use this for initialization
-    void Start () {
-
-    }
-
-    // Update is called once per frame
-    void Update () {
-
     }
 
     void OnDrawGizmos() {
@@ -36,6 +28,7 @@ namespace MapManagement
 
     public void Init(int indexRow, int indexCol, int length)
     {
+      Index = new Index2D (indexRow, indexCol);
       Vector3 _pos = Vector3.zero;
       _pos.x = indexCol * length + (float)length/2.0F;// anchor is sprite's center
       _pos.y = indexRow * length + (float)length/2.0F;// anchor is sprite's center
@@ -60,25 +53,19 @@ namespace MapManagement
       return this.NeighboursCross != null && this.NeighboursCross.Count > 0;
     }
 
-    public int GetOrderInLayer()
-    {
-      return this.GetComponent<SpriteRenderer> ().sortingOrder;
-    }
-
-    public int SetOrderInLayer(int order)
-    {
-      return this.GetComponent<SpriteRenderer> ().sortingOrder = order;
-    }
-
     void DrawNeighboursCross()
     {
       Color _oldColor = Gizmos.color;
       Gizmos.color = Color.red;
 
-      foreach (var item in NeighboursCross) {
-        if (item == null)
+      foreach (var neighbour in NeighboursCross) {
+        if (neighbour == null)
           continue;
-        Vector3 _line = item.transform.position - this.transform.position;
+
+        if (neighbour.transform.childCount != 0)
+          continue;
+        
+        Vector3 _line = neighbour.transform.position - this.transform.position;
         Vector3 _to = this.transform.position + _line.normalized * _line.magnitude * 0.2f;
         Gizmos.DrawLine (this.transform.position, _to);
       }

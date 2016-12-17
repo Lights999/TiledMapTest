@@ -14,16 +14,20 @@ namespace MapManagement.Editor
       script = (TerrainTilesGenerator)target;
     }
 
-    /*
+
     public override void OnInspectorGUI() 
     {
 
       DrawDefaultInspector();
 
+//      if (script.ReplaceTileTypes.Length == 0) {
+//        Debug.LogError ("SpawnableTileTypes is needed !");
+//      }
+
       if (Application.isPlaying)
         return;
 
-    }*/
+    }
 
 
     TerrainTilesGenerator script;

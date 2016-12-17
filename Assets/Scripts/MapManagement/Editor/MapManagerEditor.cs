@@ -16,7 +16,6 @@ namespace MapManagement.Editor
     void OnEnable()
     {
       script = (MapManager)target;
-      //this.AdjustAlign (this.AlignMode);
     }
 
     [DrawGizmo (GizmoType.Selected | GizmoType.Active)]
