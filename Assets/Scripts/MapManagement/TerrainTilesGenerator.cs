@@ -32,6 +32,8 @@ namespace MapManagement
       
     public void GenerateTerrain(MapManager mapManager)
     {
+      float _startTime = Time.realtimeSinceStartup;
+
       foreach (var tile in mapManager.BasicTileList) 
       {
         tile.GetComponent<BasicTile>().DumpNumber = 0;
@@ -49,6 +51,9 @@ namespace MapManagement
         GenerateTilesRandomExpandly (_baseObj, this.TerrainDumpStartPoint);
         break;
       }
+
+      float _time = Time.realtimeSinceStartup - _startTime;
+      Debug.LogFormat ("Generate {0} Cost time: {1:f6}", this.MapTileType, _time);
     }
 
     public GameObject FindSpawnObject(MapManager mapManager)
@@ -289,7 +294,7 @@ namespace MapManagement
     FULL_FILL,
     RANDOMLY_EXPAND
   }
-
+  /*
   public enum SPAWN_CONFLICT_MODE
   {
     REPLACE,
@@ -300,7 +305,7 @@ namespace MapManagement
   {
     REPLACE,
     SKIP
-  }
+  }*/
 
 
 

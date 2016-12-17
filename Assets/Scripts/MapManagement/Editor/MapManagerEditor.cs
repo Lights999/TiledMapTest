@@ -79,7 +79,7 @@ namespace MapManagement.Editor
       
       script.GetTerrainCellsGenerators ();
 
-
+      EditorGUILayout.Separator ();
       GUILayout.TextArea("",GUI.skin.horizontalSlider);
 
       using(new EditorGUILayout.HorizontalScope())

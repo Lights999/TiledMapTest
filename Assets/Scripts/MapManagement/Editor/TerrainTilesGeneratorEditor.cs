@@ -2,6 +2,8 @@
 using System.Collections;
 using UnityEditor;
 using ConstCollections;
+using ConstCollections.PJEnums;
+using System.Collections.Generic;
 
 namespace MapManagement.Editor
 {
@@ -17,20 +19,18 @@ namespace MapManagement.Editor
 
     public override void OnInspectorGUI() 
     {
-
       DrawDefaultInspector();
-
-//      if (script.ReplaceTileTypes.Length == 0) {
-//        Debug.LogError ("SpawnableTileTypes is needed !");
-//      }
 
       if (Application.isPlaying)
         return;
+
+      //spawnReplaceableTypes = (MAP_TILE_TYPE)EditorGUILayout.EnumMaskField("ReplaceableTypes ",spawnReplaceableTypes);
 
     }
 
 
     TerrainTilesGenerator script;
+    //MAP_TILE_TYPE spawnReplaceableTypes;
   }
 }
 
