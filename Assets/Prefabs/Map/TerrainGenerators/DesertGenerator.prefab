@@ -51,9 +51,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53f39fc9e076f044abf2ebb6341a290b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MapTileType: 0
-  TerrainTilePrefab: {fileID: 0}
+  MapTileType: 6
+  FillMode: 1
+  TerrainTilePrefab: {fileID: 1000012229791294, guid: 285291cc97afae84f9fd538bf54e0f04,
+    type: 2}
   TerrainTileList: []
-  TerrainDumpStartPoint: 10
+  SpawnReplaceableTypes: 0000000001000000
+  FillReplaceableTypes: 0000000001000000
+  UpDumpper:
+    StartValue: 0
+    DumpRange:
+      Min: 1
+      Max: 6
+  DownDumpper:
+    StartValue: 0
+    DumpRange:
+      Min: 1
+      Max: 3
+  LeftDumpper:
+    StartValue: 0
+    DumpRange:
+      Min: 1
+      Max: 3
+  RightDumpper:
+    StartValue: 0
+    DumpRange:
+      Min: 1
+      Max: 3
+  TerrainDumpStartPoint: 20
   TerrainDumpMin: 1
   TerrainDumpMax: 3
