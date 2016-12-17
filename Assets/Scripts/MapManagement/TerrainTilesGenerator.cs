@@ -22,6 +22,8 @@ namespace MapManagement
     public TerrainTileDumpper LeftDumpper;
     public TerrainTileDumpper RightDumpper;
 
+    public Dictionary<TILE_DIRECTION, TerrainTileDumpper> DumpperDic;
+
     public int TerrainDumpStartPoint = 10;
     public int TerrainDumpMin = 1;
     public int TerrainDumpMax = 3;
@@ -116,6 +118,12 @@ namespace MapManagement
     {
       this.Clear ();
 
+      this.DumpperDic = new Dictionary<TILE_DIRECTION, TerrainTileDumpper> ();
+      this.DumpperDic.Add (TILE_DIRECTION.UP, this.UpDumpper);
+      this.DumpperDic.Add (TILE_DIRECTION.DOWN, this.DownDumpper);
+      this.DumpperDic.Add (TILE_DIRECTION.LEFT, this.LeftDumpper);
+      this.DumpperDic.Add (TILE_DIRECTION.RIGHT, this.RightDumpper);
+
       GameObject _root = parentObj;
       Queue<GameObject> _openQueue = new Queue<GameObject> ();
       HashSet<GameObject> _closedList = new HashSet<GameObject> ();
@@ -148,7 +156,7 @@ namespace MapManagement
 
       foreach (var _neighbourTile in _parentScript.Neighbours) 
       {
-        int _dumpStep = Random.Range (this.TerrainDumpMin, this.TerrainDumpMax);
+        int _dumpStep = this.DumpperDic [_neighbourTile.Direction].DumpRange.RandomValue ();//Random.Range (this.TerrainDumpMin, this.TerrainDumpMax);
         if (closedList.Contains (_neighbourTile.TileObject))
           continue;
 
