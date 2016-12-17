@@ -19,16 +19,6 @@ namespace MapManagement
     public int CellColNumber;
     public int GridSideLength = 1;
 
-
-
-
-    /*
-    public MAP_CELL_TYPE[] TerrainGenerateOrder = {
-      MAP_CELL_TYPE.PLAIN,
-      MAP_CELL_TYPE.SEA
-    };
-    */
-      
     public TerrainCellsGenerator[] TCGArray;
 
 
@@ -67,27 +57,6 @@ namespace MapManagement
       }
 
       this.BasicCellList = null;
-
-      /*
-      if (BasicCellList != null) {
-        foreach (var cell in BasicCellList) {
-          DestroyImmediate (cell);
-        }
-
-        BasicCellList = null;
-      }
-
-      int _count = this.transform.childCount;
-      List<GameObject> _checkList = new List<GameObject> ();
-      for (int i = 0; i < _count; i++) {
-        _checkList.Add (this.transform.GetChild (i).gameObject);
-      }
-
-      for (int i = 0; i < _checkList.Count; i++) {
-        DestroyImmediate (_checkList [i]);
-      }
-      */
-
     }
 
     public void AdjustAlign()
