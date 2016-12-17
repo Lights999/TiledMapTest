@@ -25,12 +25,13 @@ namespace MapManagement.Editor
 
       float _startTime = Time.realtimeSinceStartup;
       float _coastTime = 0.0F;
+
       //Draw row 
       for (int _row = 0; _row < mapManager.CellRowNumber + 1; _row++) {
         Vector3 _start = new Vector3 (0, _row * gridSideLength, 0);
         Vector3 _end = new Vector3 (mapManager.CellColNumber * gridSideLength, _row * gridSideLength, 0);
-        Vector3 _offsetStart = _start + mapManager.OffsetOrigin; // Convert to offset coordinate
-        Vector3 _offsetEnd = _end + mapManager.OffsetOrigin; // Convert to offset coordinate
+        Vector3 _offsetStart = _start + mapManager.Offset; // Convert to offset coordinate
+        Vector3 _offsetEnd = _end + mapManager.Offset; // Convert to offset coordinate
         Gizmos.DrawLine (mapManager.transform.position + _offsetStart, mapManager.transform.position + _offsetEnd);
 
         _coastTime = Time.realtimeSinceStartup - _startTime;
@@ -38,11 +39,12 @@ namespace MapManagement.Editor
           throw new System.Exception ("Time out @OnDrawGizmos - Draw row ");
       }
 
+      //Draw col 
       for (int _col = 0; _col < mapManager.CellColNumber + 1; _col++) {
         Vector3 _start = new Vector3 (_col * gridSideLength, 0, 0);
         Vector3 _end = new Vector3 ( _col * gridSideLength, mapManager.CellRowNumber * gridSideLength, 0);
-        Vector3 _offsetStart = _start + mapManager.OffsetOrigin; // Convert to offset coordinate
-        Vector3 _offsetEnd = _end + mapManager.OffsetOrigin; // Convert to offset coordinate
+        Vector3 _offsetStart = _start + mapManager.Offset; // Convert to offset coordinate
+        Vector3 _offsetEnd = _end + mapManager.Offset; // Convert to offset coordinate
         Gizmos.DrawLine (mapManager.transform.position + _offsetStart, mapManager.transform.position + _offsetEnd);
 
         _coastTime = Time.realtimeSinceStartup - _startTime;
@@ -68,6 +70,7 @@ namespace MapManagement.Editor
 
       if (GUI.changed) 
       {
+        Debug.LogWarning ("GUI.changed");
         script.AdjustAlign ();
       }
 

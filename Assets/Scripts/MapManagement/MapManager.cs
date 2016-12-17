@@ -8,7 +8,7 @@ using ConstCollections.PJEnums;
 namespace MapManagement
 {
   public class MapManager : MonoBehaviour {
-    public Vector3 OffsetOrigin;
+    public Vector3 Offset;
     public MAP_ALIGN_MODE AlignMode;
 
     public int CellRowNumber;
@@ -17,6 +17,9 @@ namespace MapManagement
 
     public GameObject BasicCellPrefab;
     public GameObject[,] BasicCellList;
+
+    public GameObject MapRootObject;
+    public string MapRootName = "MapRootObject";
 
     public MAP_CELL_TYPE[] TerrainGenerateOrder = {
       MAP_CELL_TYPE.PLAIN,
@@ -40,17 +43,27 @@ namespace MapManagement
       this.Clear ();
       this.BasicCellList = new GameObject[CellRowNumber,CellColNumber];
 
-      this.AdjustAlign ();
+   
 
       this.GenerateBasicCells ();
       this.SetBasicCellsNeighbours ();
-      this.SetBasicCellsOffsetPos ();
+
+      this.AdjustAlign ();
+      this.SetBasicCellsPosition ();
     }
 
     public void Clear()
     {
       this.TCG.Clear ();
 
+      if (this.MapRootObject != null) 
+      {
+        DestroyImmediate (this.MapRootObject);
+      }
+
+      this.BasicCellList = null;
+
+      /*
       if (BasicCellList != null) {
         foreach (var cell in BasicCellList) {
           DestroyImmediate (cell);
@@ -68,6 +81,7 @@ namespace MapManagement
       for (int i = 0; i < _checkList.Count; i++) {
         DestroyImmediate (_checkList [i]);
       }
+      */
 
     }
 
@@ -76,24 +90,31 @@ namespace MapManagement
 
       switch (this.AlignMode) {
       case MAP_ALIGN_MODE.LEFT_BOTTOM:
-        OffsetOrigin = Vector3.zero;
+        Offset = Vector3.zero;
         break;
       case MAP_ALIGN_MODE.CENTER:
-        OffsetOrigin = new Vector3 ((((float)-CellColNumber) / 2.0F) * (float)GridSideLength, ((float)-CellRowNumber / 2.0F) * (float)GridSideLength, 0);
+        Offset = new Vector3 ((((float)-CellColNumber) / 2.0F) * (float)GridSideLength, ((float)-CellRowNumber / 2.0F) * (float)GridSideLength, 0);
         break;
       case MAP_ALIGN_MODE.CUSTOM:
         break;
       }
 
-      this.alignModePrev = this.AlignMode;
+      this.SetBasicCellsPosition ();
     }
 
     public void GenerateBasicCells()
     {
+      if (this.MapRootObject == null) {
+        this.MapRootObject = new GameObject (this.MapRootName);//, this.transform, false) as GameObject;
+        this.MapRootObject.transform.SetParent(this.transform);
+        this.MapRootObject.transform.localPosition = Vector3.zero;
+        this.MapRootObject.transform.localRotation = Quaternion.identity;
+      }
+
       for (int _row = 0; _row < this.CellRowNumber; _row++) {
         for (int _col = 0; _col < this.CellColNumber; _col++) {
 
-          GameObject _basicInstance =  GameObject.Instantiate (this.BasicCellPrefab, this.transform) as GameObject;
+          GameObject _basicInstance =  GameObject.Instantiate (this.BasicCellPrefab, this.MapRootObject.transform, false) as GameObject;
           this.BasicCellList [_row, _col] = _basicInstance;
 
           BasicCell _basicCell = _basicInstance.GetComponent<BasicCell> ();
@@ -101,6 +122,7 @@ namespace MapManagement
 
         }
       }
+
     }
 
     public void SetBasicCellsNeighbours()
@@ -131,11 +153,14 @@ namespace MapManagement
       }
     }
 
-    public void SetBasicCellsOffsetPos()
+    public void SetBasicCellsPosition()
     {
+      this.MapRootObject.transform.localPosition = this.Offset;
+      /*
       foreach (var cell in BasicCellList) {
-        cell.GetComponent<BasicCell>().Offset(this.OffsetOrigin);
+        cell.GetComponent<BasicCell>().Offset(this.Offset);
       }
+      */
     }
 
     public void GenerateTerrain()
@@ -178,8 +203,6 @@ namespace MapManagement
     }
     */
 
-
-    MAP_ALIGN_MODE alignModePrev;
   }
 
 }
