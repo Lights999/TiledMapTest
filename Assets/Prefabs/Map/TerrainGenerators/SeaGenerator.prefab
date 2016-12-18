@@ -51,9 +51,124 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53f39fc9e076f044abf2ebb6341a290b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MapTileType: 0
-  TerrainTilePrefab: {fileID: 0}
-  TerrainTileList: []
+  MapTileType: 2
+  FillMode: 1
+  TerrainTilePrefab: {fileID: 1000013667560400, guid: 45709ade666734746ac86fdb1eaad5c1,
+    type: 2}
+  TerrainTileList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  SpawnReplaceableTypes: 0000000001000000
+  FillReplaceableTypes: 0000000001000000
+  UpDumpper:
+    StartValue: 0
+    DumpRange:
+      Min: 1
+      Max: 3
+  DownDumpper:
+    StartValue: 0
+    DumpRange:
+      Min: 1
+      Max: 3
+  LeftDumpper:
+    StartValue: 0
+    DumpRange:
+      Min: 1
+      Max: 3
+  RightDumpper:
+    StartValue: 0
+    DumpRange:
+      Min: 1
+      Max: 3
   TerrainDumpStartPoint: 10
   TerrainDumpMin: 1
   TerrainDumpMax: 3

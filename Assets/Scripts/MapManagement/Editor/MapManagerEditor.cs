@@ -106,6 +106,11 @@ namespace MapManagement.Editor
 
     }
 
+    void OnDestroy()
+    {
+      script.Clear();
+    }
+
     MapManager script;
 
     static bool showGizmoInfo = false;
